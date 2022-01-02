@@ -1,22 +1,16 @@
-console.log(getWinner("rock", "rock"));
-console.log(getWinner("rock", "paper"));
-console.log(getWinner("rock", "scissors"));
-
-
+console.log(game());
 
 function computerPlay() {
     const options = ['rock', 'paper', 'scissors'];
     return options[Math.floor(Math.random()*3)];
 }
 
-function getWinner(playerSelection, computerSelection) {
-    console.log(playerSelection);
-    console.log(computerSelection);
+function playRound(playerSelection, computerSelection) {
 
     playerSelection = playerSelection.toLowerCase();
     
     if (playerSelection == computerSelection) {
-        return "It's a tie!";
+        return [0, "It's a tie!"];
     }
 
     const winMap = new Map([
@@ -26,8 +20,29 @@ function getWinner(playerSelection, computerSelection) {
     ]);
 
     if (winMap.get(playerSelection) == computerSelection) {
-        return `You win! ${playerSelection} beats ${computerSelection}`;
+        return [1,`You win! ${playerSelection} beats ${computerSelection}`];
     } else {
-        return `You lose! ${computerSelection} beats ${playerSelection}`;
+        return [-1, `You lose! ${computerSelection} beats ${playerSelection}`];
     }
+}
+
+
+function game() {
+    for (let i = 0; i <= 5; i++) {
+        playerSelection = window.prompt('Rock, paper, or scissors?');
+        winInt = 0;
+        // playerSelection = 'rock';
+        [win, message] = playRound(playerSelection, computerPlay());
+        
+        winInt += win;
+        console.log(message);     
+    }
+
+    if (winInt == 0) {
+        results = 'It\'s a tie!';
+    } else {
+        results = winInt > 0 ? 'You win!' : 'Computer wins!';
+    }
+
+    return results;
 }
