@@ -47,12 +47,10 @@ function game() {
 
 
     if (playerWinCount == computerWinCount) {
-        results = `It\'s a tie! ${playerWinCount}-${computerWinCount}`;
+        return `It\'s a tie! ${playerWinCount}-${computerWinCount}`;
     } else {
-        results = playerWinCount > computerWinCount ? `You win ${playerWinCount}-${computerWinCount}!` : `Computer wins ${computerWinCount}-${playerWinCount}!`;
+        return playerWinCount > computerWinCount ? `You win ${playerWinCount}-${computerWinCount}!` : `Computer wins ${computerWinCount}-${playerWinCount}!`;
     }
-
-    return results;
 }
 
 function capitalize(myStr) {
