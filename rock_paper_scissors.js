@@ -10,7 +10,7 @@ function playRound(playerSelection, computerSelection) {
     playerSelection = playerSelection.toLowerCase();
     
     if (playerSelection == computerSelection) {
-        return [0, "It's a tie!"];
+        return [0, `It's a tie! Both picked ${capitalize(playerSelection)}`];
     }
 
     const winMap = new Map([
@@ -20,29 +20,41 @@ function playRound(playerSelection, computerSelection) {
     ]);
 
     if (winMap.get(playerSelection) == computerSelection) {
-        return [1,`You win! ${playerSelection} beats ${computerSelection}`];
+        return [1,`You win! ${capitalize(playerSelection)} beats ${capitalize(computerSelection)}`];
     } else {
-        return [-1, `You lose! ${computerSelection} beats ${playerSelection}`];
+        return [-1, `You lose! ${capitalize(computerSelection)} beats ${capitalize(playerSelection)}`];
     }
 }
 
 
 function game() {
-    for (let i = 0; i <= 5; i++) {
+    playerWinCount = 0;
+    computerWinCount = 0;
+    for (let i = 0; i < 5; i++) {
         playerSelection = window.prompt('Rock, paper, or scissors?');
         winInt = 0;
         // playerSelection = 'rock';
         [win, message] = playRound(playerSelection, computerPlay());
         
-        winInt += win;
-        console.log(message);     
+        console.log(message);    
+        switch (win) {
+            case 0:
+                break;
+            default:
+                win > 0 ? playerWinCount++ : computerWinCount++;
+        } 
     }
 
-    if (winInt == 0) {
-        results = 'It\'s a tie!';
+
+    if (playerWinCount == computerWinCount) {
+        results = `It\'s a tie! ${playerWinCount}-${computerWinCount}`;
     } else {
-        results = winInt > 0 ? 'You win!' : 'Computer wins!';
+        results = playerWinCount > computerWinCount ? `You win ${playerWinCount}-${computerWinCount}!` : `Computer wins ${computerWinCount}-${playerWinCount}!`;
     }
 
     return results;
+}
+
+function capitalize(myStr) {
+    return `${myStr[0].toUpperCase()}${myStr.substring(1).toLowerCase()}`;
 }
