@@ -44,6 +44,7 @@ resultDiv.appendChild(resultsText);
 const scoreDiv = document.querySelector('#scoreDiv');
 const score = document.createElement('div');
 score.classList.add('score');
+score.setAttribute('style', 'white-space: pre;');
 scoreDiv.appendChild(score);
 
 playerScore = 0;
@@ -52,40 +53,28 @@ computerScore = 0;
 function buttonSelected(playerSelection) {
     result = playRound(playerSelection, computerPlay());
     resultsText.textContent = result[1];
-    if (result[0]) 
+    if (result[0] > 0) 
         playerScore++;
-    else 
+    else if (result[0] < 0)
         computerScore++;
-    score.textContent = `You: ${playerScore}, Computer: ${computerScore}`;
+
+    score.textContent = `You: ${playerScore}, Computer: ${computerScore}\r\n`;
+
+    if (playerScore == 5) {
+        score.textContent += "You win!";
+        resetGame();        
+    }
+
+    if (computerScore == 5) {
+        score.textContent += "Computer wins!";
+        resetGame();
+    }
 }
 
-
-
-// function game() {
-//     playerWinCount = 0;
-//     computerWinCount = 0;
-//     for (let i = 0; i < 5; i++) {
-//         playerSelection = window.prompt('Rock, paper, or scissors?');
-//         winInt = 0;
-//         // playerSelection = 'rock';
-//         [win, message] = playRound(playerSelection, computerPlay());
-        
-//         console.log(message);    
-//         switch (win) {
-//             case 0:
-//                 break;
-//             default:
-//                 win > 0 ? playerWinCount++ : computerWinCount++;
-//         } 
-//     }
-
-
-//     if (playerWinCount == computerWinCount) {
-//         return `It\'s a tie! ${playerWinCount}-${computerWinCount}`;
-//     } else {
-//         return playerWinCount > computerWinCount ? `You win ${playerWinCount}-${computerWinCount}!` : `Computer wins ${computerWinCount}-${playerWinCount}!`;
-//     }
-// }
+function resetGame() {
+    playerScore = 0;
+    computerScore = 0;
+}
 
 function capitalize(myStr) {
     return `${myStr[0].toUpperCase()}${myStr.substring(1).toLowerCase()}`;
