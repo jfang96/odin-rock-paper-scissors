@@ -25,27 +25,41 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+// Rock Paper Scissors Buttons
 const rockBtn = document.querySelector('#rockBtn');
 const paperBtn = document.querySelector('#paperBtn');
 const scissorsBtn = document.querySelector('#scissorsBtn');
-
-result = "";
 
 rockBtn.addEventListener('click', () => buttonSelected('rock'));
 paperBtn.addEventListener('click', () => buttonSelected('paper'));
 scissorsBtn.addEventListener('click', () => buttonSelected('scissors'));
 
+// Create results display
+const resultDiv = document.querySelector('#resultDiv');
+const resultsText = document.createElement('div');
+resultsText.classList.add('resultsText');
+resultDiv.appendChild(resultsText);
 
-const container = document.querySelector('#container');
-const content = document.createElement('div');
-content.classList.add('content');
-container.appendChild(content);
+// Create score display
+const scoreDiv = document.querySelector('#scoreDiv');
+const score = document.createElement('div');
+score.classList.add('score');
+scoreDiv.appendChild(score);
 
+playerScore = 0;
+computerScore = 0;
 
 function buttonSelected(playerSelection) {
     result = playRound(playerSelection, computerPlay());
-    content.textContent = result[1];
+    resultsText.textContent = result[1];
+    if (result[0]) 
+        playerScore++;
+    else 
+        computerScore++;
+    score.textContent = `You: ${playerScore}, Computer: ${computerScore}`;
 }
+
+
 
 // function game() {
 //     playerWinCount = 0;
