@@ -6,7 +6,6 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-
     playerSelection = playerSelection.toLowerCase();
     
     if (playerSelection == computerSelection) {
@@ -26,6 +25,27 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
+const rockBtn = document.querySelector('#rockBtn');
+const paperBtn = document.querySelector('#paperBtn');
+const scissorsBtn = document.querySelector('#scissorsBtn');
+
+result = "";
+
+rockBtn.addEventListener('click', () => buttonSelected('rock'));
+paperBtn.addEventListener('click', () => buttonSelected('paper'));
+scissorsBtn.addEventListener('click', () => buttonSelected('scissors'));
+
+
+const container = document.querySelector('#container');
+const content = document.createElement('div');
+content.classList.add('content');
+container.appendChild(content);
+
+
+function buttonSelected(playerSelection) {
+    result = playRound(playerSelection, computerPlay());
+    content.textContent = result[1];
+}
 
 // function game() {
 //     playerWinCount = 0;
