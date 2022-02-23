@@ -1,6 +1,6 @@
 // console.log(game());
 
-function computerPlay() {
+function computerSelection() {
     const options = ['rock', 'paper', 'scissors'];
     return options[Math.floor(Math.random()*3)];
 }
@@ -38,6 +38,7 @@ scissorsBtn.addEventListener('click', () => buttonSelected('scissors'));
 const resultDiv = document.querySelector('#resultDiv');
 const resultsText = document.createElement('div');
 resultsText.classList.add('resultsText');
+resultsText.setAttribute('style', 'white-space: pre;');
 resultDiv.appendChild(resultsText);
 
 // Create score display
@@ -51,8 +52,12 @@ playerScore = 0;
 computerScore = 0;
 
 function buttonSelected(playerSelection) {
-    result = playRound(playerSelection, computerPlay());
-    resultsText.textContent = result[1];
+    compSelection = computerSelection();
+
+    resultsText.textContent = `You picked ${playerSelection}! Computer picked ${compSelection}!\r\n`
+    
+    result = playRound(playerSelection, compSelection);
+    resultsText.textContent += result[1];
     if (result[0] > 0) 
         playerScore++;
     else if (result[0] < 0)
@@ -60,6 +65,7 @@ function buttonSelected(playerSelection) {
 
     score.textContent = `You: ${playerScore}, Computer: ${computerScore}\r\n`;
 
+    // Check for winner
     if (playerScore == 5) {
         score.textContent += "You win!";
         resetGame();        
